@@ -2,7 +2,10 @@
 <html>
   <head>
     <title>Be The Bitmap</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.2, maximum-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.2, maximum-scale=1"
+    />
     <style>
       body {
         background-color: #0000008f;
@@ -337,6 +340,10 @@
         width: 33.33333%
       }
 
+      a{
+        color:orange
+      }
+
       .cropper-center {
         display: block;
         height: 0;
@@ -541,13 +548,13 @@
       }
 
       .modal {
-        display: none; 
-        position: fixed; 
+        display: none;
+        position: fixed;
         z-index: 1;
-        padding-top: 100px; 
+        padding-top: 200px;
         left: 0;
         top: 0;
-        width: 100%; 
+        width: 100%;
         height: 100%;
         overflow: auto;
         background-color: rgb(0,0,0);
@@ -559,7 +566,7 @@
         margin: auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 80%;
+        width: 400px;
         }
 
         .close {
@@ -575,6 +582,15 @@
         text-decoration: none;
         cursor: pointer;
         }
+        .titlebar{
+        line-height: 20px;
+        font-size:20px;
+        color:white;
+        height:100px;
+        max-width:72%;
+        background: transparent;
+        border: none;
+        }
 
 
       .cropper-disabled .cropper-drag-box,
@@ -588,56 +604,82 @@
   <body>
     <div class="wrapper">
       <center>
-        <label for="inputImage" style="display: inline-block; padding: 5px 20px; cursor: pointer; background-color: #b9b8b8; color: rgb(31, 31, 31); border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin:20px 0px 10px; transition-duration: 0.4s;">Upload Image</label>
+        <label
+          for="inputImage"
+          style="display: inline-block; padding: 5px 20px; cursor: pointer; background-color: #b9b8b8; color: rgb(31, 31, 31); border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin:20px 0px 10px; transition-duration: 0.4s;"
+          >Upload Image</label
+        >
         <input type="file" id="inputImage" accept="image/*" hidden />
         <div style="width:300px; margin-bottom:10px;">
           <canvas id="image" style="display: none;"></canvas>
         </div>
         <canvas id="canvas" width="1000" height="1000"></canvas>
-        <h1>BE THE BITMAP</h1>
-        <br>
+        <button class="titlebar" id="titlebar"><h1>BE THE BITMAP</h1></button>
+        <br />
         <div class="gamepad">
           <div class="d-pad">
             <button class="button" id="btnMoveUp">&#x2191;</button>
             <button class="button" id="btnMoveLeft">&#x2190;</button>
             <button class="button" id="btnMoveRight">&#x2192;</button>
             <button class="button" id="btnMoveDown">&#x2193;</button>
-            <div class="button" id="btnCenter">&#x24D8;</button>
-            </div>
+            <button class="button" id="btnCenter">&#x25EF;</button>
           </div>
           <div class="zoom-controls">
             <button class="button" id="btnZoomIn">+</button>
             <button class="button" id="btnZoomOut">-</button>
           </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
+        <br />
         <button id="btnDownload1000">Download 1000px</button>
-        <br>
-        <br>
+        <br />
+        <br />
         <button id="btnDownload400">Download 400px</button>
-        <br>
+        <br />
         <span style="font-size:12px">Best for Social Media</span>
-        <br>
-        <br>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
+        <br />
         <div class="marquee">
-          <marquee>BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // Jun 24 2023 // This Tool is fully on chain using a recursive inscription of cropper.js b00cfb90d712ab0c5fd80580629c1910538859e55b9a9d6306f734420f3721f5i0 // See you soon :)  </marquee>
+          <marquee
+            >BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by
+            @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE
+            BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS &
+            @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE
+            THE BITMAP PFP TOOL // Made with love by @ordinalOS &
+            @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE
+            THE BITMAP PFP TOOL // Made with love by @ordinalOS &
+            @AdrianDittmann // S/O @blockamoto .bitmap // Jun 24 2023 // This
+            Tool is fully on chain using a recursive inscription of cropper.js
+            b00cfb90d712ab0c5fd80580629c1910538859e55b9a9d6306f734420f3721f5i0
+            // See you soon :)
+          </marquee>
         </div>
       </center>
     </div>
     <div id="myModal" class="modal">
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p style="font-size:9px">Be The Bitmap<br>
-            Made with Recursion Croppy.js<br>
-            b00cfb90d712ab0c5fd80580629c1910538859e55b9a9d6306f734420f3721f5i0<br>
-            </p>
-        </div>
-      </div>      
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p style="font-size:9px">
+          Be The Bitmap | PFP TOOL<br />
+          Made with Recursion Croppy.js<br />
+          b00cfb90d712ab0c5fd80580629c1910538859e55b9a9d6306f734420f3721f5i0<br />
+          Made with love by
+          <a target="_blank" href="https://twitter.com/ordinalos">@ordinalOS</a>
+          &
+          <a target="_blank" href="https://twitter.com/AdrianDittmann"
+            >@AdrianDittmann</a
+          >
+          s/o
+          <a target="_blank" href="https://twitter.com/blockamoto"
+            >@blockamoto</a
+          ><br />
+        </p>
+      </div>
+    </div>
     <script src="cropper.js"></script>
     <script>
       var URL = window.URL || window.webkitURL;
@@ -713,6 +755,7 @@
       document.getElementById('btnMoveRight').onclick = moveRight;
       document.getElementById('btnMoveUp').onclick = moveUp;
       document.getElementById('btnMoveDown').onclick = moveDown;
+      document.getElementById('btnCenter').onclick = btnCenter;
       inputImage.onchange = function() {
         var files = this.files;
         var file;
@@ -770,23 +813,23 @@
       };
     </script>
     <script>
-    var modal = document.getElementById("myModal");
-    var btn = document.getElementById("btnCenter");
-    var span = document.getElementsByClassName("close")[0];
+      var modal = document.getElementById("myModal");
+      var btn = document.getElementById("titlebar");
+      var span = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function() {
-    modal.style.display = "block";
-    }
+      btn.onclick = function() {
+      modal.style.display = "block";
+      }
 
-    span.onclick = function() {
-    modal.style.display = "none";
-    }
+      span.onclick = function() {
+      modal.style.display = "none";
+      }
 
-    window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-    }
+      window.onclick = function(event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+      }
     </script>
   </body>
 </html>
