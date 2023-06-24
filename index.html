@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Cropper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css">
+    <style>
+        body{
+            background-color: #0000008f;
+            color:white
+        }
+        button{
+            width:100%;
+        }
+        #image {
+            display: none; /* Hide the original image */
+        }
+        #canvas {
+            border: 1px solid black; /* Add a border to see the canvas */
+            max-width:100%;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" id="inputImage" accept="image/*">
+    <br><br>
+    <canvas id="image" style="display: none;"></canvas> <!-- Hidden canvas for Cropper.js -->
+    <canvas id="canvas" width="1000" height="1000"></canvas> <!-- Canvas to display the result -->
+    <Br><Br>
+    <button id="btnDownload1000">Download 1000px</button>
+    <Br><Br>
+    <button id="btnDownload400">Download 400px</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+    <script>
+        var URL = window.URL || window.webkitURL;
+        var inputImage = document.getElementById('inputImage');
+        var image = document.getElementById('image');
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');
+        var cropper;
+
+        function downloadImage(resolution) {
+            // When the user clicks a download button, get the cropped image
+            var imageData = cropper.getCroppedCanvas({
+                width: 553.3333,
+                height: 553.3333
+            });
+
+            // Clear the canvas to ensure it's transparent
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw the cropped image in the center of the canvas
+            ctx.drawImage(imageData, (canvas.width - 553.3333) / 2, (canvas.height - 553.3333) / 2);
+
+            var outputCanvas = document.createElement('canvas');
+            outputCanvas.width = resolution;
+            outputCanvas.height = resolution;
+            var outputCtx = outputCanvas.getContext('2d');
+
+            // Draw the cropped image scaled to the desired resolution
+            outputCtx.drawImage(canvas, 0, 0, resolution, resolution);
+
+            var link = document.createElement('a');
+            link.download = 'image_' + resolution + 'px.png';
+            link.href = outputCanvas.toDataURL();
+            link.click();
+        }
+
+        document.getElementById('btnDownload1000').onclick = function() { downloadImage(1000); };
+        document.getElementById('btnDownload400').onclick = function() { downloadImage(400); };
+
+        inputImage.onchange = function () {
+            var files = this.files;
+            var file;
+
+            if (files && files.length) {
+                file = files[0];
+
+                if (/^image\/\w+/.test(file.type)) {
+                    var img = new Image();
+                    img.src = URL.createObjectURL(file);
+                    img.onload = function () {
+                        URL.revokeObjectURL(this.src);
+
+                        // Draw the loaded image on the hidden canvas so Cropper.js can process it
+                        image.width = img.width;
+                        image.height = img.height;
+                        var imgCtx = image.getContext('2d');
+                        imgCtx.clearRect(0, 0, image.width, image.height);
+                        imgCtx.drawImage(img, 0, 0, img.width, img.height);
+
+                        if (cropper !== undefined) {
+                            cropper.destroy();
+                        }
+
+                        cropper = new Cropper(image, {
+                            aspectRatio: 1,
+                            autoCropArea: 1, // Set to maximum
+                            viewMode: 1,
+                            cropBoxResizable: false, // Prevent resizing the crop box
+                            ready: function () {
+                                // When the image is ready, display the initial crop without applying it
+                                var containerData = this.cropper.getContainerData();
+                                var minSize = Math.min(containerData.width, containerData.height);
+                                this.cropper.setCropBoxData({ width: minSize, height: minSize, left: (containerData.width - minSize) / 2, top: (containerData.height - minSize) / 2 });
+                            },
+                            crop: function () {
+                                // Update the display every time the crop box changes
+                                var imageData = cropper.getCroppedCanvas({
+                                    width: 553.3333,
+                                    height: 553.3333
+                                });
+
+                                // Clear the canvas to ensure it's transparent
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                                // Draw the cropped image in the center of the canvas
+                                ctx.drawImage(imageData, (canvas.width - 553.3333) / 2, (canvas.height - 553.3333) / 2);
+                            }
+                        });
+                    }
+                } else {
+                    window.alert('Please choose an image file.');
+                }
+            }
+        };
+    </script>
+</body>
+</html>
