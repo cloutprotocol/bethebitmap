@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Be The Bitmap</title>
-    <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.2, maximum-scale=1" />
     <style>
         body{
         background-color: #0000008f;
@@ -101,10 +101,8 @@
         image-rendering: optimizeSpeed;
         image-rendering: pixelated;
         image-rendering: optimize-contrast;
-        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAyIDIiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CjxtZXRhZGF0YT5NYWRlIHdpdGggUGl4ZWxzIHRvIFN2ZyBodHRwczovL2NvZGVwZW4uaW8vc2hzaGF3L3Blbi9YYnh2Tmo8L21ldGFkYXRhPgo8cGF0aCBzdHJva2U9IiNjMGMwYzAiIGQ9Ik0wIDBoMU0xIDFoMSIgLz4KPC9zdmc+");
         background-position: 0 0;
         background-repeat: repeat;
-        background-size: 2px;
         }
         body *::-webkit-scrollbar-button {
         background-repeat: no-repeat;
@@ -249,7 +247,6 @@
 
         document.getElementById('btnDownload1000').onclick = function() { downloadImage(1000); };
         document.getElementById('btnDownload400').onclick = function() { downloadImage(400); };
-        document.getElementById('btnSetDrag').onclick = setDragMode;
         document.getElementById('btnZoomIn').onclick = zoomIn;
         document.getElementById('btnZoomOut').onclick = zoomOut;
         document.getElementById('btnMoveLeft').onclick = moveLeft;
