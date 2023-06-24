@@ -10,7 +10,8 @@
         }
         button{
             width:100%;
-            height:200px
+            height:333px;
+            font-size:33px;
 
         }
         #image {
@@ -18,15 +19,21 @@
         }
         #canvas {
             border: 1px solid black; /* Add a border to see the canvas */
-            max-width:90%;
+            max-width:500px;
+            margin:0px auto
         }
     </style>
 </head>
 <body>
     <input type="file" id="inputImage" accept="image/*">
     <br><br>
+    <center>
     <canvas id="image" style="display: none;"></canvas> <!-- Hidden canvas for Cropper.js -->
+    <Br><Br>
+        <h1>BE THE BITMAP</h1>
+    <Br><Br>
     <canvas id="canvas" width="1000" height="1000"></canvas> <!-- Canvas to display the result -->
+    </center>
     <Br><Br>
     <button id="btnDownload1000">Download 1000px</button>
     <Br><Br>
