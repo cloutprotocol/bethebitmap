@@ -10,8 +10,8 @@
         font-family: 'helvetica';
         }
         button{
-        width:90%;
-        height:100px;
+        width:90%;  
+        height: 80px;px;
         font-size:24px;
         image-rendering: optimizeSpeed;
         image-rendering: pixelated;
@@ -50,8 +50,8 @@
             display: none; /* Hide the original image */
         }
         #canvas {
-        max-width:65vw;
-        max-height:65vh;
+        max-width:70vw;
+        max-height:70vh;
         margin:0px auto;
         border: 1px solid black; /* Add a border to see the canvas */
         background:rgba(0, 0, 0, 0.078);
@@ -123,27 +123,61 @@
         body *::-webkit-scrollbar-corner {
         background: silver;
         }
-               /* Gamepad Controls */
+        /* Gamepad Controls */
         .gamepad {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-bottom: 20px;
+        justify-content: space-between;
+        width: 60%;
+        margin: 10px;
         }
 
         .gamepad .button {
-        width: 50px;
-        height: 50px;
-        margin: 5px;
-        font-size: 14px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #666666;
-        border: none;
-        color: white;
-        cursor: pointer;
-        outline: none;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            font-size: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #666666;
+            border: none;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .d-pad {
+            display: grid;
+            grid-template-columns: 50px 50px 50px;
+            grid-template-rows: 50px 50px 50px;
+            gap: 5px;
+        }
+
+        .d-pad #btnMoveUp {
+            grid-column: 2;
+            grid-row: 1;
+        }
+
+        .d-pad #btnMoveLeft {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .d-pad #btnMoveRight {
+            grid-column: 3;
+            grid-row: 2;
+        }
+
+        .d-pad #btnMoveDown {
+            grid-column: 2;
+            grid-row: 3;
+        }
+
+        .zoom-controls {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items:end;
         }
             /*!
         * Cropper.js v1.5.6
@@ -161,18 +195,23 @@
         <input type="file" id="inputImage" accept="image/*" />
         <br><br>
         <center>
-           <div style="width:300px; margin-bottom:20px;"> <canvas id="image" style="display: none;"></canvas></div>
+           <div style="width:300px; margin-bottom:10px;"> <canvas id="image" style="display: none;"></canvas></div>
             <canvas id="canvas" width="1000" height="1000"></canvas>
-            <h2>BE THE BITMAP</h2>
-
+            <h1>BE THE BITMAP</h1>
+            <br>
             <div class="gamepad">
-                <button class="button" id="btnMoveUp">&#x2191;</button>
-                <button class="button" id="btnMoveLeft">&#x2190;</button>
-                <button class="button" id="btnMoveRight">&#x2192;</button>
-                <button class="button" id="btnMoveDown">&#x2193;</button>
-                <button class="button" id="btnZoomIn">+</button>
-                <button class="button" id="btnZoomOut">-</button>
-            </div>
+                <div class="d-pad">
+                    <button class="button" id="btnMoveUp">&#x2191;</button>
+                    <button class="button" id="btnMoveLeft">&#x2190;</button>
+                    <button class="button" id="btnMoveRight">&#x2192;</button>
+                    <button class="button" id="btnMoveDown">&#x2193;</button>
+                </div>
+                <div class="zoom-controls">
+                    <button class="button" id="btnZoomIn">+</button>
+                    <button class="button" id="btnZoomOut">-</button>
+                </div>
+            </div>            
+            <br><br>
             <button id="btnDownload1000">Download 1000px</button><br>
             <span style="font-size:14px">Best for posting & printing</span>
             <br><br>
