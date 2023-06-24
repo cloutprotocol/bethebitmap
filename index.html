@@ -28,16 +28,6 @@
         font-size:14px;
         height:14px;
         }
-        /* .wrapper{
-        max-width:600px;
-        max-height:600px;
-        margin:0px auto;
-        overflow-x: hidden;
-        overflow-y: scroll;
-        border: 5px solid #fafafa25;
-        background: #39f;
-        position: relative;
-        } */
         .wrapper { 
         left:0;
         right: 0;
@@ -48,7 +38,7 @@
         overflow-x: hidden;
         }
         #image {
-            display: none; /* Hide the original image */
+        display: none; /* Hide the original image */
         }
         #canvas {
         max-width:70vw;
@@ -124,6 +114,17 @@
         body *::-webkit-scrollbar-corner {
         background: silver;
         }
+        .marquee{
+            position:fixed;
+            width:100%;
+            bottom:0px;
+            height:9px;
+            padding:2px;
+            font-size:9px;
+            color:black;
+            background-color:white;
+            text-align:center;
+        }
         /* Gamepad Controls */
         .gamepad {
         display: flex;
@@ -172,6 +173,12 @@
             grid-row: 3;
         }
 
+        .d-pad #btnCenter {
+            grid-column: 2;
+            grid-row: 2;
+            background: orange;
+        }
+
         .zoom-controls {
             display: flex;
             flex-direction: column;
@@ -191,7 +198,7 @@
 </head>
 <body>
     <div class="wrapper">
-        <input type="file" id="inputImage" accept="image/*" />
+       
         <br><br>
         <center>
            <div style="width:300px; margin-bottom:10px;"> <canvas id="image" style="display: none;"></canvas></div>
@@ -204,6 +211,12 @@
                     <button class="button" id="btnMoveLeft">&#x2190;</button>
                     <button class="button" id="btnMoveRight">&#x2192;</button>
                     <button class="button" id="btnMoveDown">&#x2193;</button>
+                    <div class="button" id="btnCenter">
+                        <label for="inputImage">
+                            &#x23FB;
+                        </label>
+                        <input type="file" id="inputImage" accept="image/*" hidden />
+                    </div>
                 </div>
                 <div class="zoom-controls">
                     <button class="button" id="btnZoomIn">+</button>
@@ -211,12 +224,14 @@
                 </div>
             </div>            
             <br><br>
+            <br><br>
             <button id="btnDownload1000">Download 1000px</button><br>
-            <span style="font-size:14px">Best for posting & printing</span>
+            <span style="font-size:14px">Best for Posting & Printing</span>
             <br><br>
             <button id="btnDownload400">Download 400px</button><br>
-            <span style="font-size:14px">Best for Social media profile pictures</span>
+            <span style="font-size:14px">Best for Social Media PFP</span>
             <br><br>
+            <div class="marquee"><marquee>////////////////// BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap // BE THE BITMAP // BE THE BITMAP PFP TOOL // Made with love by @ordinalOS & @AdrianDittmann // S/O @blockamoto .bitmap </marquee></div>
         </center>
     </div>
     <script src="cropper.js"></script>
