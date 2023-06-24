@@ -2,30 +2,30 @@
 <html>
 <head>
     <title>Be The Bitmap</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=.9, maximum-scale=1" />
     <style>
         body{
         background-color: #0000008f;
         color:white;
         font-family: 'helvetica';
-        overflow-y: auto;
         }
         button{
         width:90%;
         height:100px;
-        font-size:26px;
+        font-size:24px;
         image-rendering: optimizeSpeed;
         image-rendering: pixelated;
         image-rendering: optimize-contrast;
         background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTAuNSAyIDIiIHNoYXBlLXJlbmRlcmluZz0iY3Jpc3BFZGdlcyI+CjxtZXRhZGF0YT5NYWRlIHdpdGggUGl4ZWxzIHRvIFN2ZyBodHRwczovL2NvZGVwZW4uaW8vc2hzaGF3L3Blbi9YYnh2Tmo8L21ldGFkYXRhPgo8cGF0aCBzdHJva2U9IiNjMGMwYzAiIGQ9Ik0wIDBoMU0xIDFoMSIgLz4KPC9zdmc+");
         background-position: 0 0;
         background-repeat: repeat;
-        background-size: 2px;
+        background-size: 1px;
         }
         input{
         width:100%;
-        padding:20px;
-        font-size:16px;
+        padding:10px;
+        font-size:14px;
+        height:14px;
         }
         /* .wrapper{
         max-width:600px;
@@ -43,14 +43,17 @@
         top: 0;
         bottom: 0;
         position: absolute;
+        overflow: scroll;
+        overflow-x: hidden;
         }
         #image {
             display: none; /* Hide the original image */
         }
         #canvas {
-        border: 1px solid black; /* Add a border to see the canvas */
-        max-width:60%;
+        max-width:65vw;
+        max-height:65vh;
         margin:0px auto;
+        border: 1px solid black; /* Add a border to see the canvas */
         background:rgba(0, 0, 0, 0.078);
         background-size: 40px 40px;
         background-image:
@@ -122,6 +125,28 @@
         body *::-webkit-scrollbar-corner {
         background: silver;
         }
+               /* Gamepad Controls */
+        .gamepad {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-bottom: 20px;
+        }
+
+        .gamepad .button {
+        width: 50px;
+        height: 50px;
+        margin: 5px;
+        font-size: 14px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #666666;
+        border: none;
+        color: white;
+        cursor: pointer;
+        outline: none;
+        }
             /*!
         * Cropper.js v1.5.6
         * https://fengyuanchen.github.io/cropperjs
@@ -135,22 +160,29 @@
 </head>
 <body>
     <div class="wrapper">
-    <input type="file" id="inputImage" accept="image/*" />
-    <center>
-    <canvas id="image" style="display: none;"></canvas> <!-- Hidden canvas for Cropper.js -->
-    <Br><Br>
-    <canvas id="canvas" width="1000" height="1000"></canvas> <!-- Canvas to display the result -->
-    <h2>BE THE BITMAP</h2>
-    <Br><Br>
-    <button id="btnDownload1000">Download 1000px</button><br>
-    <span style="font-size:14px">Best for posting, printing, minting, inscribing</span>
-    <Br><Br>
-    <button id="btnDownload400">Download 400px</button><br>
-    <span style="font-size:14px">Best for Social media profile pictures</span>
-    <Br><Br>
-    <Br><Br>
+        <input type="file" id="inputImage" accept="image/*" />
+        <br><br>
+        <center>
+           <div style="width:300px; margin-bottom:20px;"> <canvas id="image" style="display: none;"></canvas></div>
+            <canvas id="canvas" width="1000" height="1000"></canvas>
+            <h2>BE THE BITMAP</h2>
+
+            <div class="gamepad">
+                <button class="button" id="btnMoveUp">&#x2191;</button>
+                <button class="button" id="btnMoveLeft">&#x2190;</button>
+                <button class="button" id="btnMoveRight">&#x2192;</button>
+                <button class="button" id="btnMoveDown">&#x2193;</button>
+                <button class="button" id="btnZoomIn">+</button>
+                <button class="button" id="btnZoomOut">-</button>
+            </div>
+            <button id="btnDownload1000">Download 1000px</button><br>
+            <span style="font-size:14px">Best for posting & printing</span>
+            <br><br>
+            <button id="btnDownload400">Download 400px</button><br>
+            <span style="font-size:14px">Best for Social media profile pictures</span>
+            <br><br>
+        </center>
     </div>
-    </center>
     <script src="cropper.js"></script>
     <script>
         var URL = window.URL || window.webkitURL;
@@ -187,17 +219,47 @@
             link.click();
         }
 
+        function setDragMode() {
+            cropper.setDragMode('move');
+        }
+
+        function zoomIn() {
+            cropper.zoom(0.1);
+        }
+
+        function zoomOut() {
+            cropper.zoom(-0.1);
+        }
+
+        function moveLeft() {
+            cropper.move(-10, 0);
+        }
+
+        function moveRight() {
+            cropper.move(10, 0);
+        }
+
+        function moveUp() {
+            cropper.move(0, -10);
+        }
+
+        function moveDown() {
+            cropper.move(0, 10);
+        }
+
         document.getElementById('btnDownload1000').onclick = function() { downloadImage(1000); };
         document.getElementById('btnDownload400').onclick = function() { downloadImage(400); };
+        document.getElementById('btnSetDrag').onclick = setDragMode;
+        document.getElementById('btnZoomIn').onclick = zoomIn;
+        document.getElementById('btnZoomOut').onclick = zoomOut;
+        document.getElementById('btnMoveLeft').onclick = moveLeft;
+        document.getElementById('btnMoveRight').onclick = moveRight;
+        document.getElementById('btnMoveUp').onclick = moveUp;
+        document.getElementById('btnMoveDown').onclick = moveDown;
 
         inputImage.onchange = function () {
             var files = this.files;
             var file;
-            var screenWidth = 600; // Width of the screen
-            var screenHeight = 600; // Height of the screen
-            // Calculate the autoCropArea value as a percentage
-            var autoCropArea = Math.min(screenWidth, screenHeight) / Math.max(screenWidth, screenHeight);
-
 
             if (files && files.length) {
                 file = files[0];
@@ -220,41 +282,40 @@
                         }
 
                         cropper = new Cropper(image, {
-                        aspectRatio: 1,
-                        autoCropArea: 1,
-                        viewMode: 2, // Updated viewMode value to 2
-                        cropBoxResizable: false,
-                        ready: function () {
-                            // When the image is ready, display the initial crop without applying it
-                            var containerData = this.cropper.getContainerData();
-                            var minSize = Math.min(containerData.width, containerData.height);
-                            this.cropper.setCropBoxData({
-                            width: minSize,
-                            height: minSize,
-                            left: (containerData.width - minSize) / 2,
-                            top: (containerData.height - minSize) / 2
-                            });
-                        },
-                        crop: function () {
-                            // Update the display every time the crop box changes
-                            var imageData = cropper.getCroppedCanvas({
-                            width: 553.3333,
-                            height: 553.3333
-                            });
+                            aspectRatio: 1,
+                            autoCropArea: 2,
+                            viewMode: 1, // Updated viewMode value to 2
+                            cropBoxResizable: false,
+                            ready: function () {
+                                // When the image is ready, display the initial crop without applying it
+                                var containerData = this.cropper.getContainerData();
+                                var minSize = Math.min(containerData.width, containerData.height);
+                                this.cropper.setCropBoxData({
+                                    width: minSize,
+                                    height: minSize,
+                                    left: (containerData.width - minSize) / 2,
+                                    top: (containerData.height - minSize) / 2
+                                });
+                            },
+                            crop: function () {
+                                // Update the display every time the crop box changes
+                                var imageData = cropper.getCroppedCanvas({
+                                    width: 553.3333,
+                                    height: 553.3333
+                                });
 
-                            // Clear the canvas to ensure it's transparent
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                // Clear the canvas to ensure it's transparent
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                            // Draw the cropped image in the center of the canvas
-                            ctx.drawImage(
-                            imageData,
-                            (canvas.width - 553.3333) / 2,
-                            (canvas.height - 553.3333) / 2
-                            );
-                        }
+                                // Draw the cropped image in the center of the canvas
+                                ctx.drawImage(
+                                    imageData,
+                                    (canvas.width - 553.3333) / 2,
+                                    (canvas.height - 553.3333) / 2
+                                );
+                            }
                         });
-
-                    }
+                    };
                 } else {
                     window.alert('Please choose an image file.');
                 }
